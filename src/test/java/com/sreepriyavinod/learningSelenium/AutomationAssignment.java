@@ -1,7 +1,6 @@
 package com.sreepriyavinod.learningSelenium;
 
 import java.util.concurrent.TimeUnit;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -11,6 +10,7 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
 
 public class AutomationAssignment {
 
@@ -29,16 +29,15 @@ public class AutomationAssignment {
 	}
 
 	@Test
-	public void createAccount() {
+	public void verifySignUpFunctionality() {
 
-		
 		WebElement emailInput = wd.findElement(By.id("email_create"));
 		WebElement createAccButton = wd.findElement(By.id("SubmitCreate"));
 
-		emailInput.sendKeys("priya12345@gmail.com");
+		emailInput.sendKeys(createRandomString("alphaNumeric", 8) + "@gmail.com");
 		createAccButton.submit();
 
-		//finding Elements to input the required field
+		// finding Elements to input the required field
 		WebElement genderInput = wd.findElement(By.id("id_gender2"));
 		WebElement firstNameInput = wd.findElement(By.id("customer_firstname"));
 		WebElement lastNameInput = wd.findElement(By.id("customer_lastname"));
@@ -58,11 +57,11 @@ public class AutomationAssignment {
 		WebElement aliasAddressInput = wd.findElement(By.id("alias"));
 		WebElement submitAccButton = wd.findElement(By.id("submitAccount"));
 
-		//provide all the input
+		// provide all the input
 		genderInput.click();
-		firstNameInput.sendKeys("Sree");
-		lastNameInput.sendKeys("priya");
-		passwordInput.sendKeys("priya12345");
+		firstNameInput.sendKeys(createRandomString("regular",8).toUpperCase());
+		lastNameInput.sendKeys(createRandomString("regular",7).toUpperCase());
+		passwordInput.sendKeys(createRandomString("alphaNumeric",9));
 
 		Select selection;
 		selection = new Select(dateInput);
@@ -79,24 +78,48 @@ public class AutomationAssignment {
 		addressCityInput.sendKeys("Toronto ON Canada");
 		selection = new Select(addressStateInput);
 		selection.selectByValue("32");
-		addressZipcodeInput.sendKeys("A1B2C3");
+		addressZipcodeInput.sendKeys("12345");
 		selection = new Select(addressCountryInput);
 		selection.selectByValue("21");
 		additionalInfoInput.sendKeys("Not a US Resident. Complete Residential Address provided in Alias address field");
-		phoneNumInput.sendKeys("41613215664");
+		phoneNumInput.sendKeys(createRandomString("numeric", 10));
 
 		aliasAddressInput.clear();
-		aliasAddressInput.sendKeys("#567, XYZ Street, Toronto ON, A1B2C3, Canada");
-		submitAccButton.submit();
+		aliasAddressInput.sendKeys("#567,XYZ St,Toronto ON,A1B2C3,CA");
+		submitAccButton.click();
 
-		Assert.assertEquals(wd.getCurrentUrl(), "http://automationpractice.com/index.php?controller=authentication",
-				"Not redirected to authentication page");
+		WebElement pageHeadingAfterLogin = wd.findElement(By.className("page-heading"));
+		Assert.assertEquals(pageHeadingAfterLogin.getText(), "MY ACCOUNT", "Login not successful");
 
 	}
 
 	@AfterMethod
 	public void closeBrowser() {
-		wd.quit();
+		// wd.quit();
 	}
 
+	// method to create Random String of length n
+	public String createRandomString(String stringType,int n) {
+		
+		String str;
+		if (stringType.equals("alphaNumeric")) {
+			str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+		} else if (stringType.equals("regular")) {
+			str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz";
+		} else {	//stringType is numeric
+			str = "0123456789";
+		}
+		
+		StringBuilder randomString = new StringBuilder(n);
+		for (int i = 0; i < n; i++) {
+			// Math.random generates a random value between 0.0 and 1.0 ---
+			// this value times alphaNumeric.length() gives a random double value,
+			// explicitly type casting to integer type
+			int index = (int) (str.length() * Math.random());
+			randomString.append(str.charAt(index));
+		}
+		return randomString.toString();
+	}
+	
+	
 }
