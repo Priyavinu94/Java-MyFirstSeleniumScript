@@ -11,8 +11,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-
-public class AutomationAssignment {
+public class AutomationAssignmentUpdated {
 
 	WebDriver wd;
 
@@ -59,17 +58,19 @@ public class AutomationAssignment {
 
 		// provide all the input
 		genderInput.click();
-		firstNameInput.sendKeys(createRandomString("regular",8).toUpperCase());
-		lastNameInput.sendKeys(createRandomString("regular",7).toUpperCase());
-		passwordInput.sendKeys(createRandomString("alphaNumeric",9));
+		String firstName = createRandomString("regular", 8).toUpperCase();
+		firstNameInput.sendKeys(firstName);
+		String lastName = createRandomString("regular", 7).toUpperCase();
+		lastNameInput.sendKeys(lastName);
+		passwordInput.sendKeys(createRandomString("alphaNumeric", 9));
 
 		Select selection;
 		selection = new Select(dateInput);
-		selection.selectByValue("24");
+		selection.selectByValue(String.valueOf(createRandomNumber(1, 28)));
 		selection = new Select(monthInput);
-		selection.selectByValue("10");
+		selection.selectByValue(String.valueOf(createRandomNumber(1, 12)));
 		selection = new Select(yearInput);
-		selection.selectByValue("1994");
+		selection.selectByValue(String.valueOf(createRandomNumber(1900, 2022)));
 
 		newsletterCheckbox.click();
 		receiveOfferCheckbox.click();
@@ -88,8 +89,8 @@ public class AutomationAssignment {
 		aliasAddressInput.sendKeys("#567,XYZ St,Toronto ON,A1B2C3,CA");
 		submitAccButton.click();
 
-		WebElement pageHeadingAfterLogin = wd.findElement(By.className("page-heading"));
-		Assert.assertEquals(pageHeadingAfterLogin.getText(), "MY ACCOUNT", "Login not successful");
+		WebElement currentUserName = wd.findElement(By.className("account"));
+		Assert.assertEquals(currentUserName.getText(), firstName + " " + lastName, "Login not successful");
 
 	}
 
@@ -99,17 +100,17 @@ public class AutomationAssignment {
 	}
 
 	// method to create Random String of length n
-	public String createRandomString(String stringType,int n) {
-		
+	public String createRandomString(String stringType, int n) {
+
 		String str;
 		if (stringType.equals("alphaNumeric")) {
 			str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 		} else if (stringType.equals("regular")) {
 			str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz";
-		} else {	//stringType is numeric
+		} else { // stringType is numeric
 			str = "0123456789";
 		}
-		
+
 		StringBuilder randomString = new StringBuilder(n);
 		for (int i = 0; i < n; i++) {
 			// Math.random generates a random value between 0.0 and 1.0 ---
@@ -120,5 +121,12 @@ public class AutomationAssignment {
 		}
 		return randomString.toString();
 	}
-		
+
+	// method to create a random integer within a given range
+	public int createRandomNumber(int minOfRange, int maxOfRange) {
+		// Math.Random() returns any random value between 0.0 and 1.0
+		// this value * (maxOfRange - minOfRange) rounded to nearest
+		return (int) (Math.round(Math.random() * (maxOfRange - minOfRange))) + minOfRange;
+	}
+
 }

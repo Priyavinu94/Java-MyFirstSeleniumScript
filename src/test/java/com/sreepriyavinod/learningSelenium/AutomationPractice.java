@@ -59,7 +59,7 @@ public class AutomationPractice {
 		Assert.assertEquals(successMessage.getText(), "Your message has been successfully sent to our team.", "Unexpected Success alert");
 		
 		//to check if the test fails for the below:--- it is failing---
-		Assert.assertEquals(successMessage.getText(), "Message successfully sent.", "Unexpected Success alert");
+		//Assert.assertEquals(successMessage.getText(), "Message successfully sent.", "Unexpected Success alert");
 
 	}
 	
