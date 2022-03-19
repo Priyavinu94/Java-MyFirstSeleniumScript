@@ -114,7 +114,7 @@ public class AutomationAssignmentUpdated {
 		StringBuilder randomString = new StringBuilder(n);
 		for (int i = 0; i < n; i++) {
 			// Math.random generates a random value between 0.0 and 1.0 ---
-			// this value times alphaNumeric.length() gives a random double value,
+			// this value times str.length() gives a random double value,
 			// explicitly type casting to integer type
 			int index = (int) (str.length() * Math.random());
 			randomString.append(str.charAt(index));
@@ -124,8 +124,11 @@ public class AutomationAssignmentUpdated {
 
 	// method to create a random integer within a given range
 	public int createRandomNumber(int minOfRange, int maxOfRange) {
+		
 		// Math.Random() returns any random value between 0.0 and 1.0
-		// this value * (maxOfRange - minOfRange) rounded to nearest
+		// this value * (maxOfRange - minOfRange) rounded to nearest integer gives a
+		// number b/w minOfRange and maxOfRange
+		
 		return (int) (Math.round(Math.random() * (maxOfRange - minOfRange))) + minOfRange;
 	}
 
