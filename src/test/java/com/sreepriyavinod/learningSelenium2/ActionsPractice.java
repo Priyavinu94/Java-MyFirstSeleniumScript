@@ -32,7 +32,7 @@ public class ActionsPractice {
 	@Test // method to test click function
 	public void testClickFunctionality() {
 
-		WebElement clickMeButton = driver.findElement(By.cssSelector("div.col-12.mt-4.col-md-6 div.mt-4 button.mt-4"));
+		WebElement clickMeButton = driver.findElement(By.cssSelector("div.col-12.mt-4.col-md-6 div.mt-4:nth-of-type(3) button"));
 		action.click(clickMeButton).perform();
 
 		WebElement clickSuccessMsg = driver.findElement(By.id("dynamicClickMessage"));
@@ -84,6 +84,17 @@ public class ActionsPractice {
 		WebElement targetElement = driver.findElement(By.id("droppable"));
 		action.dragAndDrop(sourceElement, targetElement).perform();
 		Assert.assertEquals(targetElement.getText(), "Dropped!");
+		
+	}
+	
+	@Test
+	public void testMouseHoverFunctionality() {
+		
+		WebElement mouseHoverElement = driver.findElement(By.id("toolTipButton"));
+		action.moveToElement(mouseHoverElement).perform();
+		
+		String attributeValue = mouseHoverElement.getAttribute("aria-describedby");
+		Assert.assertEquals(attributeValue, "buttonToolTip");
 		
 	}
 
