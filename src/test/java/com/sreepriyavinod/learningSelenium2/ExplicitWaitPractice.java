@@ -20,7 +20,6 @@ public class ExplicitWaitPractice {
 		driver.get("https://demoqa.com/");
 		
 		wait = new WebDriverWait(driver, 10);
-
 	}
 	
 

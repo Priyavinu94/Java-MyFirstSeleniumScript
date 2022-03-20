@@ -92,7 +92,6 @@ public class ActionsPractice {
 		
 		WebElement mouseHoverElement = driver.findElement(By.id("toolTipButton"));
 		action.moveToElement(mouseHoverElement).perform();
-		
 		String attributeValue = mouseHoverElement.getAttribute("aria-describedby");
 		Assert.assertEquals(attributeValue, "buttonToolTip");
 		

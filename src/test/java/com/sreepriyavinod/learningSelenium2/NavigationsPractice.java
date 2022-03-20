@@ -38,6 +38,7 @@ public class NavigationsPractice {
 		
 		//refresh/reload --- using navigate().refresh()
 		driver.navigate().refresh();
+		
 	}
 	
 	@AfterMethod
