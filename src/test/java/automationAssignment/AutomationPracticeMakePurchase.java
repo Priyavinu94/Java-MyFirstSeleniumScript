@@ -98,11 +98,14 @@ public class AutomationPracticeMakePurchase {
 		
 		WebElement productName = driver.findElement(By.id("layer_cart_product_title"));
 		WebElement quantity = driver.findElement(By.id("layer_cart_product_quantity"));
-		System.out.println(productName.getText());	//--not fetching text
-		System.out.println(quantity.getText());		//--not fetching text
+		
+		System.out.println("Class Attribute value for product: " +productName.getAttribute("class")); //----working
+		System.out.println("Product :"+productName.getText());	//--not fetching text
+		System.out.println("Quantity :"+quantity.getText());		//--not fetching text
 		
 		// 10. Click on 'Proceed to CheckOut'
-		WebElement checkOutButton = driver.findElement(By.cssSelector(".clearfix .layer_cart_cart .button-container .btn.btn-default.button.button-medium span"));
+		WebElement checkOutButton = driver.findElement(By.cssSelector("div.clearfix div.button-container a.btn.btn-default.button.button-medium span"));
+		System.out.println(checkOutButton.getText());  //Expected :"Proceed to Checkout"--not fetching text 
 		checkOutButton.click();
 	}
 
