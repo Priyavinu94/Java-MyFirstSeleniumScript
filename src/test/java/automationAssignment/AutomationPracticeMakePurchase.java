@@ -162,7 +162,7 @@ public class AutomationPracticeMakePurchase {
 	
 	@AfterMethod
 	public void closeBrowser() {
-		// driver.quit();
+		driver.quit();
 	}
 
 }
