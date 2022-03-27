@@ -27,7 +27,7 @@ public class MulitpleWindowPractice {
 	}
 
 	@Test
-	public void multipleWindows() {
+	public void switchBtwnMultipleWindows() {
 
 		String parentHandle = driver.getWindowHandle();
 		System.out.println("Parent Window ID : " + parentHandle + " loads " + driver.getTitle());
